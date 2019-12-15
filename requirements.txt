@@ -1,0 +1,7 @@
+peewee
+pendulum
+mysqlclient
+redis
+flask-redis
+flask
+requests

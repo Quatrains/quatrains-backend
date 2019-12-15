@@ -1,0 +1,6 @@
+-r requirements.txt
+faker
+flake8
+pytest
+pytest-cov
+pytest-mock
