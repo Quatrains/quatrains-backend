@@ -4,7 +4,7 @@ PREFIX = "/user"
 
 
 def test_user_login(client):
-    url = f"{PREFIX}/login"
+    url = "{}/login".format(PREFIX)
 
     _, res = client.get(url)
 
