@@ -6,6 +6,12 @@ PREFIX = "/user"
 def test_user_login(client):
     url = "{}/login".format(PREFIX)
 
-    _, res = client.get(url)
+    payload = {
+        "code": "1234"
+    }
 
-    assert res["res"] == "hello world"
+    code, _ = client.post(url, data=payload)
+
+    assert code == 200
+
+

@@ -5,3 +5,5 @@ redis
 flask-redis
 flask
 requests
+pycryptodome
+PyJWT
