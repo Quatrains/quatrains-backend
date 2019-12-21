@@ -76,7 +76,7 @@ def set_user_cookie(response):
         auth_token,
         expires=expire_at,
         path=current_app.config["JWT_COOKIE_PATH"],
-        domain=current_app.config["JWT_COOKIE_DOMAIN"],
+        # domain=current_app.config["JWT_COOKIE_DOMAIN"],
         httponly=current_app.config["JWT_COOKIE_HTTPONLY"],
     )
     return response
@@ -91,8 +91,9 @@ def jwt_identify_parse():
             payload = json.loads(payload)
 
         else:
-            cookie = request.headers.get("cookie")
-            auth_token = re.findall("auth_token=(.*?);", str(cookie))[0]
+            cookie = request.headers["cookie"]
+            auth_token = re.findall("{}=([^;]*)".format(
+                current_app.config["JWT_COOKIE_NAME"]), cookie)[0]
             payload = jwt.decode(auth_token, current_app.config["JWT_SECRET"])
 
         request.user = namedtuple("User", payload.keys())(*payload.values())
