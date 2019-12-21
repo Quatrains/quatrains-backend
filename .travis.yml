@@ -3,8 +3,10 @@ cache: pip
 python:
 - '3.5'
 
+env:
+- FLASK_ENV=testing
+
 install:
 - pip install -r test_requirements.txt -U
 script:
-- flake8 app
 - pytest tests
