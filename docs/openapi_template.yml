@@ -1,0 +1,5 @@
+swagger: "2.0"
+info:
+  title: quatrains
+  description: 'This is a swagger doc for quatrains project'
+  version: 0.0.1

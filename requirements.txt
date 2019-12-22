@@ -7,3 +7,4 @@ flask
 requests
 pycryptodome
 PyJWT
+flasgger

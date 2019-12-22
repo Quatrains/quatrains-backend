@@ -1,0 +1,66 @@
+tags:
+  - favorite
+
+summary: 列出收藏的诗词
+
+parameters:
+  - name: ipp
+    in: query
+    required: true
+    schema:
+      type: integer
+      example: 10
+
+  - name: page
+    in: query
+    required: true
+    schema:
+      type: integer
+      example: 100
+
+responses:
+  200:
+    description: OK
+    schema:
+      type: object
+      properties:
+        total:
+          type: integer
+          example: 100
+
+        ipp:
+          type: integer
+          example: 10
+
+        page:
+          type: integer
+          example: 1
+
+        objects:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                example: 1
+                description: poetry_id
+
+              title:
+                type: string
+                example: "静夜思"
+
+              author:
+                type: string
+                example: "李白"
+
+              content:
+                type: array
+                items:
+                  type: obejct
+                example: [
+                "床前明月光，",
+                "疑是地上霜。",
+                "举头望明月，",
+                "低头思故乡。"
+                ]

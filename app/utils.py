@@ -2,11 +2,14 @@ import json
 import functools
 from collections import namedtuple
 import re
+import os
 
 import jwt
 import pendulum
-
+from flasgger import swag_from
 from flask import Response, request, current_app
+
+from app.extensions import swagger
 
 
 def json_response(data=None, code=200, msg=None, excluded_fields=()):
@@ -100,3 +103,21 @@ def jwt_identify_parse():
 
     except Exception:
         return
+
+
+def swag_from_yml_file(file_name, **kwargs):
+    swag_kwargs = kwargs
+
+    def decorator(function):
+        abs_file_path = os.path.join(
+            swagger.app.root_path, swagger.app.config["SWAGGER_DOCS_PATH"], file_name
+        )
+        wrap_func = swag_from(specs=abs_file_path, **swag_kwargs)(function)
+
+        @functools.wraps(function)
+        def wrapper(*args, **kwargs):
+            return wrap_func(*args, **kwargs)
+
+        return wrapper
+
+    return decorator

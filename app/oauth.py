@@ -187,33 +187,3 @@ class WechatMiniAppOAuth(OAuth):
 
 
 oauth_client = WechatMiniAppOAuth()
-
-
-if __name__ == "__main__":
-
-    oauth_client = WechatMiniAppOAuth()
-    app_secret = "b8d40e8f690561a5354d5b27b0868a7a"
-    app_id = "wxaef2b1a656821b49"
-    code = "061iC6v61NskUM12Gmu61N2iv61iC6vl"
-    access_token = oauth_client.get_access_token(app_id, app_secret, code)
-    print(access_token)
-    # access_token = {'session_key': 'oLRQzlwRyQbbPmVjv1SWgg==', 'openid': 'oK9RO5XBIBRH4ZZhTmXZGa9TllWU'}
-    data = {
-        "errMsg": "getUserInfo:ok",
-        "rawData": "{\"nickName\":\"shingo\",\"gender\":2,\"language\":\"zh_CN\",\"city\":\"Guangyuan\",\"province\":\"Sichuan\",\"country\":\"China\",\"avatarUrl\":\"https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eo7NNgMjk79r99eayDSG4iaeJuxasLYg5GgnV2PkJic4Tvz06touMjyOlVYIiaIPTghuibvryjfqSKbGg/132\"}",
-        "userInfo": {
-            "nickName": "shingo",
-            "gender": 2,
-            "language": "zh_CN",
-            "city": "Guangyuan",
-            "province": "Sichuan",
-            "country": "China",
-            "avatarUrl": "https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eo7NNgMjk79r99eayDSG4iaeJuxasLYg5GgnV2PkJic4Tvz06touMjyOlVYIiaIPTghuibvryjfqSKbGg/132"
-        },
-        "signature": "daa677265824177b32489bfea25d72717cef6c25",
-        "encryptedData": "fsF/SMEmSKd93ruSnsKJZ+OfXfurmbh7hcp7GpbaLwPVe+Of/EodjpYL7LtVJKKrL7iET14BOJeVsYsfjXPOSRNdYp6u9hWAx/RKou0LHOECX911FsxNVOA7ksrrb5c/bkmh0FtkhpwwzypPqa+XCYyfkMBJP5LE7VnNOEBhYtNnWwVvDkK9KdlTB24NHedQmel9UAOt5GM3fgXVoQ/G6pcig6pO7Kbbh5d5F6yi3ROGmjl/cZya2BLmVGSSPddZ/UICCKQI/S7xROuDS9XR5NEXzPJoV40QBgqVteurPGL33KnKPpuefk3j8uCFuYV5r7/wA17h8Fm4tLY7ng1HVQB7+EEw8jqIasECqq7ZsiPyz9WPUre5uIBf3rVnS3xMPyrVPygWuRyBPNh9WL6IIQXicLTMbRwIOp8kawxmLdEI85VMgSrK8aEprb0dMUHsPgl5jRRM59FGUeFBAobnS6KU+9Vblop8EHk01rTxD+Y=",
-        "iv": "YWRQ7qwx5tKSJjacmhMDqQ=="
-    }
-    userinfo = oauth_client.decrypt_userinfo(data, access_token)
-
-    print(userinfo)

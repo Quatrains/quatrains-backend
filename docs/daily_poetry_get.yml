@@ -1,0 +1,34 @@
+tags:
+  - poetry
+
+summary: 获取每日诗词
+
+
+responses:
+  200:
+    description: OK
+    schema:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+
+        title:
+          type: string
+          example: "静夜思"
+
+        author:
+          type: string
+          example: "李白"
+
+        content:
+          type: array
+          items:
+            type: obejct
+          example: [
+          "床前明月光，",
+          "疑是地上霜。",
+          "举头望明月，",
+          "低头思故乡。"
+          ]

@@ -1,0 +1,26 @@
+tags:
+  - interests
+
+summary: 列出可选兴趣
+
+
+responses:
+  200:
+    description: OK
+    schema:
+      type: object
+      properties:
+        objects:
+          type: array
+          items:
+            type: object
+            properties:
+
+              id:
+                type: integer
+                example: 25
+                description: 兴趣id
+
+              text:
+                type: string
+                example: "怀旧"
