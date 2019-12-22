@@ -1,0 +1,22 @@
+tags:
+  - user
+
+summary: 小程序登录
+
+parameters:
+  - name: body
+    in: body
+    required: true
+    schema:
+      type: object
+      properties:
+
+        code:
+          type: string
+          example: "abc"
+          description: 通过小程序拿到的code
+
+
+responses:
+  200:
+    description: response的header里有set_cookie

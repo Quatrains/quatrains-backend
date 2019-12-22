@@ -1,0 +1,22 @@
+tags:
+  - user
+
+summary: 用户资料
+
+
+responses:
+  200:
+    description: OK
+    schema:
+      type: object
+      properties:
+
+        join_days:
+          type: integer
+          example: 10
+          description: 加入天数
+
+        have_interests:
+          type: boolean
+          example: true
+          description: 选择了兴趣

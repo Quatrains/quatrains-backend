@@ -1,0 +1,22 @@
+tags:
+  - favorite
+
+summary: 添加收藏
+
+parameters:
+  - name: body
+    in: body
+    required: true
+    schema:
+      type: object
+      properties:
+
+        poetry_id:
+          type: integer
+          example: 12
+          description: 诗词id
+
+
+responses:
+  200:
+    description: OK

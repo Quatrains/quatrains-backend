@@ -1,0 +1,22 @@
+tags:
+  - interests
+
+summary: 添加兴趣
+
+parameters:
+  - name: body
+    in: body
+    required: true
+    schema:
+      type: object
+      properties:
+
+        interest_id:
+          type: integer
+          example: 12
+          description: 兴趣id
+
+
+responses:
+  200:
+    description: OK
