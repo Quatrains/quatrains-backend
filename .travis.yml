@@ -14,8 +14,8 @@ install:
     - pip install -r test_requirements.txt -U
 
 before_script:
-    - mysql -u root -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('root_quatrains')"
     - mysql -u root -e 'create database quatrains_test character set utf8mb4 collate utf8mb4_unicode_ci'
+    - mysql -u root -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('root_quatrains')"
 
 script:
     - pytest tests
