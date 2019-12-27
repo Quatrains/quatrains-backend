@@ -14,7 +14,7 @@ install:
     - pip install -r test_requirements.txt -U
 
 before_script:
-    - echo "USE mysql;\nUPDATE user SET password=PASSWORD('root_quatrains') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
+    - mysql -u root -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('root_quatrains')"
     - mysql -e 'create database quatrains character set utf8mb4 collate utf8mb4_unicode_ci'
 
 script:
