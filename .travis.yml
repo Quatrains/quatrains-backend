@@ -15,7 +15,7 @@ install:
 
 before_script:
     - mysql -u root -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('root_quatrains')"
-    - mysql -e 'create database quatrains character set utf8mb4 collate utf8mb4_unicode_ci'
+    - mysql -u root -e 'create database quatrains_test character set utf8mb4 collate utf8mb4_unicode_ci'
 
 script:
     - pytest tests
