@@ -1,4 +1,5 @@
 from .jwt import *  # noqa
+from .peewee import *  # noqa
 
 APP_SECRET = ""
 APP_ID = ""
@@ -17,3 +18,6 @@ SWAGGER = {
     "swagger_ui": True,
     "specs_route": "/apidocs/",
 }
+
+
+TZ = "Asia/Shanghai"

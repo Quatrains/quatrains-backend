@@ -95,7 +95,7 @@ class WechatMiniAppOAuth(OAuth):
                 raise MpCodeError("微信服务器错误")
             if result["errcode"] == 41008:
                 raise MpCodeError("请求缺少code")
-            raise MpCodeError(f"{result['errcode']}: {result['errmsg']}")
+            raise MpCodeError("{}: {}".format(result['errcode'], result['errmsg']))
         return result
 
     def decrypt_userinfo(self, data, access_token):
@@ -186,4 +186,4 @@ class WechatMiniAppOAuth(OAuth):
             raise Exception(data["errmsg"])
 
 
-oauth_client = WechatMiniAppOAuth()
+wechatmp_oauth = WechatMiniAppOAuth()

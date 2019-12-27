@@ -4,6 +4,9 @@ from collections import namedtuple
 import pendulum
 import pytest
 
+from app.extensions import pwdb
+from app.poetry import models as poetry
+
 
 class Client:
     METHODS = ["get", "post", "put", "delete"]
@@ -13,13 +16,12 @@ class Client:
         self.client = app.test_client()
         self.set_user()
 
-    def set_user(self, user_id=3, is_staff=1):
+    def set_user(self, user_id=3):
         self.user_id = user_id
         self.user = namedtuple("User", ["id"])(self.user_id)
         payload = {
             "id": self.user.id,
-            "username": "jeff",
-            "is_staff": is_staff,
+            "username": "robot",
             "device": 0,
             "exp": str(pendulum.now().add(minutes=1)),
         }
@@ -91,6 +93,37 @@ def app():
     from app import app
 
     yield app
+
+
+@pytest.fixture(scope="session")
+def models():
+    models = []
+    for model in (poetry,):
+        for i in model.__dict__.values():
+            if isinstance(i, type) and issubclass(i,
+                                                  pwdb.Model) and i is not pwdb.Model:
+                models.append(i)
+
+    yield models
+
+
+@pytest.fixture(scope="session", autouse=True)
+def db(models):
+    with pwdb.database.atomic():
+        pwdb.database.create_tables(models)
+
+    yield
+
+    with pwdb.database.atomic():
+        pwdb.database.drop_tables(models)
+
+
+@pytest.fixture(scope="function", autouse=True)
+def data_cleaner(models):
+    yield
+
+    for model in models:
+        model.delete().execute()
 
 
 @pytest.fixture()
