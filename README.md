@@ -6,8 +6,8 @@
 
 ### 1.拉取镜像
 ```
-docker pull quatrains/mysql
-docker pull quatrains/quatrains_bk
+docker pull mysql:5.7
+docker pull quatrains/quatrains_bk:[最新tag]
 ```
 
 ### 2.创建network
@@ -23,10 +23,19 @@ docker run -d \
 --name mysql \
 -e MYSQL_ROOT_PASSWORD=root_quatrains \
 -v /var/container_data/mysql:/var/lib/mysql \
---restart=always quatrains/mysql
+--restart=always mysql:5.7
 ```
 
-### 4.启动flask
+### 4.创建数据库
+```
+docker exec -it mysql bash
+mysql -uroot -proot_quatrains
+create database quatrains character set utf8mb4 collate utf8mb4_unicode_ci;
+exit
+exit
+```
+
+### 5.启动flask
 ```
 docker run -d \
 --net=quatrains_net \
@@ -35,5 +44,14 @@ docker run -d \
 -e APP_ID='THE_APP_ID' \
 -e FLASK_ENV='production' \
 -p 8888:5000 \
---name quatrains quatrains/quatrains_bk
+--name quatrains quatrains/quatrains_bk:[最新tag]
+```
+
+### 6.访问api
+```
+- 自动创建数据:
+    http://127.0.0.1:8888/auto_create_data
+
+- api文档:
+    http://127.0.0.1:8888/apidocs
 ```
