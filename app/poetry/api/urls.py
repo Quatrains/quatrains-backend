@@ -34,3 +34,15 @@ bp.add_url_rule(
     "daily_poetry", view_func=v.DailyPoetryView.as_view("daily_poetry"),
     methods=["GET"]
 )
+
+
+# temp, delete when production
+bp.add_url_rule(
+    "auto_create_data", view_func=v.AutoCreateDataView.as_view("auto_create_data"),
+    methods=["GET"]
+)
+
+bp.add_url_rule(
+    "user/login_free", view_func=v.LoginFreeView.as_view("login_free"),
+    methods=["POST", "GET"]
+)

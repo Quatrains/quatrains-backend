@@ -1,4 +1,5 @@
 peewee
+peeweext
 pendulum
 mysqlclient
 redis

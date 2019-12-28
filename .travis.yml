@@ -1,12 +1,21 @@
 language: python
+sudo: enabled
 cache: pip
 python:
-- '3.5'
+    - '3.5'
+
+services:
+    - mysql:5.7
 
 env:
-- FLASK_ENV=testing
+    - FLASK_ENV=testing
 
 install:
-- pip install -r test_requirements.txt -U
+    - pip install -r test_requirements.txt -U
+
+before_script:
+    - mysql -u root -e 'create database quatrains_test character set utf8mb4 collate utf8mb4_unicode_ci'
+    - mysql -u root -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('root_quatrains')"
+
 script:
-- pytest tests
+    - pytest tests

@@ -11,10 +11,12 @@ parameters:
       type: object
       properties:
 
-        interest_id:
-          type: integer
-          example: 12
-          description: 兴趣id
+        interest_ids:
+          type: array
+          items:
+            type: integer
+          example: [1, 3, 5]
+          description: 兴趣ids
 
 
 responses:

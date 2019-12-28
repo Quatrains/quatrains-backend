@@ -10,6 +10,16 @@ responses:
     schema:
       type: object
       properties:
+
+        date:
+          type: string
+          example: "2020-01-01"
+
+        week:
+          type: integer
+          example: 1
+          enum: [1, 2, 3, 4, 5, 6, 7]
+
         id:
           type: integer
           example: 1
