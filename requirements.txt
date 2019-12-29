@@ -9,3 +9,5 @@ requests
 pycryptodome
 PyJWT
 flasgger
+torch
+torchvision
