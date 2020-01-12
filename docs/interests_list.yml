@@ -4,12 +4,39 @@ tags:
 summary: 列出可选兴趣
 
 
+parameters:
+  - name: ipp
+    in: query
+    required: true
+    schema:
+      type: integer
+      example: 10
+
+  - name: page
+    in: query
+    required: true
+    schema:
+      type: integer
+      example: 100
+
 responses:
   200:
     description: OK
     schema:
       type: object
       properties:
+        total:
+          type: integer
+          example: 100
+
+        page:
+          type: integer
+          example: 1
+
+        ipp:
+          type: integer
+          example: 10
+
         objects:
           type: array
           items:
