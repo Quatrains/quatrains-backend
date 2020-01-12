@@ -119,20 +119,22 @@ class Interest(pwdb.Model):
         }
 
     @classmethod
-    def list_interests(cls):
-        interests = cls.select()
+    def list_interests(cls, page, ipp):
+        interests = cls.select().paginate(page, ipp)
         return [i.to_dict() for i in interests]
 
 
 class Poetry(pwdb.Model):
-    interest_id = pw.IntegerField(null=True)
     # 推荐系统产出的诗歌id为idx
     idx = pw.IntegerField(unique=True)
     title = pw.CharField(max_length=32)
+    title_tr = pw.CharField(max_length=32, default="")
     author = pw.CharField(max_length=32)
-    content = JSONCharField(max_length=1024, default=list)
-    background = pw.CharField(max_length=1024, default="")
-    analysis = pw.CharField(max_length=1024, default="")
+    author_tr = pw.CharField(max_length=32, default="")
+    content = JSONCharField(max_length=4096, default=list)
+    content_tr = JSONCharField(max_length=4096, default=list)
+    background = pw.CharField(max_length=2048, default="")
+    analysis = pw.TextField(default="")
 
     class Meta:
         table_name = "poetry"
