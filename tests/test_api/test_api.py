@@ -90,7 +90,8 @@ def test_add_interests(client, interest):
     ).exists() is True
 
 
-def test_get_daily_poetry(client, poetry):
+def test_get_daily_poetry(mocker, client, poetry):
+    mocker.patch("app.poetry.models.Poetry.get", return_value=poetry)
     url = "/daily_poetry"
 
     _, res = client.get(url)

@@ -1,9 +1,8 @@
-from app.Algs.recommend import s
+from app.extensions import predict
 
 
-def test_fake_alg():
-    test_data = [("Yo creo que si".split(), "SPANISH"),
-                 ("it is lost on me".split(), "ENGLISH")]
+def test_predict():
+   idx = predict.predict(["悼亡", "月"], [], [])
 
-    log_probs = s.predict(test_data)
-    assert log_probs[0][0] < log_probs[0][1]
+   assert idx != 0
+

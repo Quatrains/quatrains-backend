@@ -7,7 +7,7 @@ from peeweext.fields import JSONCharField
 from flask import current_app
 import pendulum
 
-from app.extensions import pwdb
+from app.extensions import pwdb, predict
 from app.oauth import wechatmp_oauth
 
 
@@ -150,7 +150,7 @@ class Poetry(pwdb.Model):
     @classmethod
     def get_daily_poetry(cls, user_id):
         today_date = pendulum.today(tz=current_app.config["TZ"]).date()
-        poetry = cls._random_fetch_a_poetry(user_id)
+        poetry = cls.recommend_a_poetry(user_id)
 
         return {
             "today_date": str(today_date),
@@ -166,6 +166,22 @@ class Poetry(pwdb.Model):
         poetry = Poetry.select().paginate(pidx, 1).first()
 
         return poetry
+
+    @classmethod
+    def recommend_a_poetry(cls, user_id):
+        user_interest = UserInterest.get_user_interest(user_id)
+        interests = [
+            i.text for i in Interest.select().where(Interest.id.in_(user_interest.interest_ids))
+        ]
+
+        user_favorites = UserFavorite.select().where(UserFavorite.user_id == user_id).limit(30)
+        poetries = Poetry.select().where(
+            Poetry.id.in_([i.poetry_id for i in user_favorites])
+        )
+        favorite_poetry_idxs = [i.idx for i in poetries]
+
+        idx = predict.predict(interests, favorite_poetry_idxs, [])
+        return Poetry.get(idx=idx)
 
 
 class UserFavorite(pwdb.Model):
@@ -223,6 +239,12 @@ class UserInterest(pwdb.Model):
             user_id=user_id,
             interest_ids=interest_ids
         )
+
+    @classmethod
+    def get_user_interest(cls, user_id):
+        ui, _ = cls.get_or_create(user_id=user_id)
+
+        return ui
 
 
 class UserProfile:
