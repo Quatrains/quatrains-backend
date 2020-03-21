@@ -178,9 +178,9 @@ class Poetry(pwdb.Model):
         poetries = Poetry.select().where(
             Poetry.id.in_([i.poetry_id for i in user_favorites])
         )
-        favorite_poetry_idx = [i.idx for i in poetries]
+        favorite_poetry_idxs = [i.idx for i in poetries]
 
-        idx = predict.predict(interests, favorite_poetry_idx, [])
+        idx = predict.predict(interests, favorite_poetry_idxs, [])
         return Poetry.get(idx=idx)
 
 
